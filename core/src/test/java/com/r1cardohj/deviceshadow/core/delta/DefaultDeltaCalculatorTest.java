@@ -124,4 +124,29 @@ public class DefaultDeltaCalculatorTest {
         assertFalse(delta.getDeltaMap().isEmpty());
         assertEquals(Map.of("key1", 1, "key2", 1.2), delta.getDeltaMap());
     }
+
+    @Test
+    void testCalculateDeltaWithDesiredNull() {
+        Map<String, Object> desired = null;
+        Map<String, Object> reported = Map.of("key1", 1, "key2", 1.2);
+
+        var calculator = DeltaCalculatorFactory.createDefault();
+
+        var delta = calculator.calculateDelta(desired, reported);
+        assertTrue(delta.getDeltaMap().isEmpty());
+        assertEquals(Map.of(), delta.getDeltaMap());
+    }
+
+
+    @Test
+    void testCalculateDeltaWithWithReportedNull() {
+        Map<String, Object> reported = null;
+        Map<String, Object> desired = Map.of("key1", 1, "key2", 1.2);
+
+        var calculator = DeltaCalculatorFactory.createDefault();
+
+        var delta = calculator.calculateDelta(desired, reported);
+        assertFalse(delta.getDeltaMap().isEmpty());
+        assertEquals(desired, delta.getDeltaMap());
+    }
 }
