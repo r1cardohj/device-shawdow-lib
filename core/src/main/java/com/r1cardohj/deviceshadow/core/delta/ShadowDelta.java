@@ -1,19 +1,20 @@
 package com.r1cardohj.deviceshadow.core.delta;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@EqualsAndHashCode
 public class ShadowDelta {
-    private final Map<String, Object> delta;
-    private final Map<String, FieldChange> fieldCHanges;
-    private final long timestatmp;
-    private final DeltaSeverity severity;
+    private final Map<String, Object> deltaMap;
+    private final long timestamp;
 
-    public ShadowDelta(Map<String, Object> delat, Map<String, FieldChange> fieldChanges,DeltaSeverity severity) {
-        this.delta = delat;
-        this.fieldCHanges = fieldChanges;
-        this.timestatmp = System.currentTimeMillis();
-        this.severity = severity;
+    public ShadowDelta(Map<String, Object> delat, Map<String, FieldChange> fieldChanges) {
+        this.deltaMap = delat;
+        this.timestamp = System.currentTimeMillis();
     }
     private static Map<String, FieldChange> extractFieldChanges(Map<String, Object> delta) {
         Map<String, FieldChange> fieldChanges = new HashMap<>();
@@ -23,11 +24,7 @@ public class ShadowDelta {
         return fieldChanges;
     }
 
-    public ShadowDelta(Map<String, Object> delta) {
-        this(delta, extractFieldChanges(delta), calculateSeverity(delta));
-    }
-
-    private static DeltaSeverity calculateSeverity(Map<String, Object> delta) {
-        return delta.isEmpty() ? DeltaSeverity.NONE : DeltaSeverity.MEDIUM;
+    public ShadowDelta(Map<String, Object> deltaMap) {
+        this(deltaMap, extractFieldChanges(deltaMap));
     }
 }

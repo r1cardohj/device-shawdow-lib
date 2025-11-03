@@ -3,16 +3,16 @@ package com.r1cardohj.deviceshadow.core.storage;
 import java.util.Collection;
 import java.util.Map;
 
-import com.r1cardohj.deviceshadow.core.model.DeviceShadow;
+import com.r1cardohj.deviceshadow.core.model.IDeviceShadow;
 
 public interface ShadowStorage {
-  void saveShadow(DeviceShadow shadow);
+  void saveShadow(IDeviceShadow shadow);
 
-  DeviceShadow getShadow(String deviceId);
+  IDeviceShadow getShadow(String deviceId);
 
   boolean deleteShadow(String deviceId);
 
-  Map<String, DeviceShadow> getShadow(Collection<String> deviceIds);
+  Map<String, IDeviceShadow> getShadow(Collection<String> deviceIds);
 
-  void saveShadow(Map<String, DeviceShadow> shadows);
+  void saveShadow(Map<String, IDeviceShadow> shadows);
 }

@@ -1,8 +1,13 @@
 package com.r1cardohj.deviceshadow.core.delta;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 /**
  * 字段变化类，表示设备影子中某个字段的变化信息。
  */
+@Getter
+@EqualsAndHashCode
 public class FieldChange {
 
     private final String fieldName;

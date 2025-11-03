@@ -3,11 +3,11 @@ package com.r1cardohj.deviceshadow.core.storage;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.r1cardohj.deviceshadow.core.model.DeviceShadow;
+import com.r1cardohj.deviceshadow.core.model.IDeviceShadow;
 
 public class InMemoryShadowStorage implements ShadowStorage{
 
-  private final ConcurrentHashMap<String, DeviceShadow> storage;
+  private final ConcurrentHashMap<String, IDeviceShadow> storage;
 
   public InMemoryShadowStorage() {
     this.storage = new ConcurrentHashMap<>();
@@ -15,14 +15,14 @@ public class InMemoryShadowStorage implements ShadowStorage{
 
 
   @Override
-  public void saveShadow(DeviceShadow shadow) {
+  public void saveShadow(IDeviceShadow shadow) {
       Objects.requireNonNull(shadow, "shadow must not be null");
       Objects.requireNonNull(shadow.getDeviceId(), "deviceId must not be null");
       storage.put(shadow.getDeviceId(), shadow);
   }
 
   @Override
-  public DeviceShadow getShadow(String deviceId) {
+  public IDeviceShadow getShadow(String deviceId) {
       Objects.requireNonNull(deviceId, "deviceId must not be null");
       return storage.get(deviceId);
   }
@@ -34,9 +34,9 @@ public class InMemoryShadowStorage implements ShadowStorage{
   }
 
   @Override
-  public Map<String, DeviceShadow> getShadow(Collection<String> deviceIds) {
+  public Map<String, IDeviceShadow> getShadow(Collection<String> deviceIds) {
       Objects.requireNonNull(deviceIds, "deviceIds must not be null");
-      Map<String, DeviceShadow> res = new LinkedHashMap<>();
+      Map<String, IDeviceShadow> res = new LinkedHashMap<>();
       for (var deviceId : deviceIds) {
           if (deviceId == null)
               continue;
@@ -47,7 +47,7 @@ public class InMemoryShadowStorage implements ShadowStorage{
   }
 
   @Override
-  public void saveShadow(Map<String, DeviceShadow> shadows) {
+  public void saveShadow(Map<String, IDeviceShadow> shadows) {
       for (var entry : shadows.entrySet()) {
           var key = entry.getKey();
           var value = entry.getValue();

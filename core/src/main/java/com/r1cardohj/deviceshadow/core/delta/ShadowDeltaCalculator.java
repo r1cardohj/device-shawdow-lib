@@ -1,6 +1,6 @@
 package com.r1cardohj.deviceshadow.core.delta;
 
-import com.r1cardohj.deviceshadow.core.model.DeviceShadow;
+import com.r1cardohj.deviceshadow.core.model.IDeviceShadow;
 import com.r1cardohj.deviceshadow.core.model.ShadowState;
 
 import java.util.Map;
@@ -12,7 +12,7 @@ public interface ShadowDeltaCalculator {
     /*
      * calculates the delta of a device shadow
      */
-    ShadowDelta calculateDelta(DeviceShadow deviceShadow);
+    ShadowDelta calculateDelta(IDeviceShadow IDeviceShadow);
     /*
      * calculates the delta between current and previous states
      */
@@ -24,7 +24,7 @@ public interface ShadowDeltaCalculator {
     /*
      * checks if the device shadow has delta
      */
-    boolean hasDelta(DeviceShadow shadow);
+    boolean hasDelta(IDeviceShadow shadow);
 
-    DeltaStrategy getStrategy();
+    boolean hasDelta(Map<String, Object> desired, Map<String, Object> reported);
 }
